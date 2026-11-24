@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.By;
 
 import jp.co.sss.lms.ct.util.WebDriverUtils;
 
@@ -49,7 +50,16 @@ public class Case03 {
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		// TODO ここに追加
+		// ログイン情報を入力
+		WebDriverUtils.webDriver.findElement(By.name("loginId")).sendKeys("StudentAA01");
+		WebDriverUtils.webDriver.findElement(By.name("password")).sendKeys("ItTest2025");
+
+		// ログインボタンをクリック
+		WebDriverUtils.webDriver.findElement(By.cssSelector("input[type='submit']")).click();
+
+		//スクリーンショットを撮影する
+		WebDriverUtils.getEvidence(new Object() {
+		});
 	}
 
 }
