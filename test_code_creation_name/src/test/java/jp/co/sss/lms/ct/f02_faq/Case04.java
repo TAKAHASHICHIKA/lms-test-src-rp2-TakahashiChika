@@ -2,6 +2,8 @@ package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * 結合テスト よくある質問機能
@@ -55,6 +59,11 @@ public class Case04 {
 		// ログインボタンをクリック
 		webDriver.findElement(By.cssSelector("input[type='submit']")).click();
 
+		// ログアウトボタンが表示されるまで待機
+		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.cssSelector("button[onclick*='/lms/logout']")));
+
 		//スクリーンショットを撮影する
 		getEvidence(new Object() {
 		});
@@ -64,14 +73,32 @@ public class Case04 {
 	@Order(3)
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
 	void test03() {
-		// TODO ここに追加
+		// 機能メニューをクリック
+		webDriver.findElement(By.linkText("機能")).click();
+
+		// ヘルプをクリック
+		webDriver.findElement(By.linkText("ヘルプ")).click();
+
+		// スクリーンショットを撮影する
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
 	void test04() {
-		// TODO ここに追加
+		// よくある質問をクリック
+		webDriver.findElement(By.linkText("よくある質問")).click();
+
+		// 別タブに切り替える
+		for (String handle : webDriver.getWindowHandles()) {
+			webDriver.switchTo().window(handle);
+		}
+
+		// スクリーンショットを撮影する
+		getEvidence(new Object() {
+		});
 	}
 
 }
