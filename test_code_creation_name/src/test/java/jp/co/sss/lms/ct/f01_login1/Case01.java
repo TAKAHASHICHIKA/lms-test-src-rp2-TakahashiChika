@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import jp.co.sss.lms.ct.util.WebDriverUtils;
-
 /**
  * 結合テスト ログイン機能①
  * ケース01
@@ -41,13 +39,13 @@ public class Case01 {
 	void test01() {
 
 		// 指定のURLの画面を開く
-		WebDriverUtils.goTo("http://localhost:8080/lms");
+		goTo("http://localhost:8080/lms");
 		
 		// エビデンス保存先のフォルダを作成
 		new File("evidence").mkdirs();
 		
 		//スクリーンショットを撮影する
-		WebDriverUtils.getEvidence(new Object() {});
+		getEvidence(new Object() {});
 	}
 
 }
