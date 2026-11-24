@@ -38,7 +38,7 @@ public class Case01 {
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
-	public void test01() {
+	void test01() {
 
 		// 指定のURLの画面を開く
 		WebDriverUtils.goTo("http://localhost:8080/lms");
