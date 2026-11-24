@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
 
@@ -43,6 +44,9 @@ public class Case03 {
 		// 指定のURLの画面を開く
 		goTo("http://localhost:8080/lms");
 
+		//検証
+		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
+
 		//スクリーンショットを撮影する
 		getEvidence(new Object() {
 		});
@@ -63,6 +67,9 @@ public class Case03 {
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.cssSelector("button[onclick*='/lms/logout']")));
+		
+		//検証
+		assertEquals("http://localhost:8080/lms/course/detail", webDriver.getCurrentUrl());
 
 		//スクリーンショットを撮影する
 		getEvidence(new Object() {
