@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 
-import jp.co.sss.lms.ct.util.WebDriverUtils;
-
 /**
  * 結合テスト ログイン機能①
  * ケース03
@@ -39,10 +37,10 @@ public class Case03 {
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
 		// 指定のURLの画面を開く
-		WebDriverUtils.goTo("http://localhost:8080/lms");
+		goTo("http://localhost:8080/lms");
 
 		//スクリーンショットを撮影する
-		WebDriverUtils.getEvidence(new Object() {
+		getEvidence(new Object() {
 		});
 	}
 
@@ -51,14 +49,14 @@ public class Case03 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 		// ログイン情報を入力
-		WebDriverUtils.webDriver.findElement(By.name("loginId")).sendKeys("StudentAA01");
-		WebDriverUtils.webDriver.findElement(By.name("password")).sendKeys("ItTest2025");
+		webDriver.findElement(By.name("loginId")).sendKeys("StudentAA01");
+		webDriver.findElement(By.name("password")).sendKeys("ItTest2025");
 
 		// ログインボタンをクリック
-		WebDriverUtils.webDriver.findElement(By.cssSelector("input[type='submit']")).click();
+		webDriver.findElement(By.cssSelector("input[type='submit']")).click();
 
 		//スクリーンショットを撮影する
-		WebDriverUtils.getEvidence(new Object() {
+		getEvidence(new Object() {
 		});
 	}
 
