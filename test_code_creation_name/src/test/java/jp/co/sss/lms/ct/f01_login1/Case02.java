@@ -38,39 +38,42 @@ public class Case02 {
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
-	void test01()  {
+	void test01() {
 
 		// 指定のURLの画面を開く
-		WebDriverUtils.goTo("http://localhost:8080/lms");
+		goTo("http://localhost:8080/lms");
 
 		//スクリーンショットを撮影する
-		WebDriverUtils.getEvidence(new Object() {});
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 DBに登録されていないユーザーでログイン")
-	void test02()  {
+	void test02() {
 
 		// 誤った情報を入力
-		WebDriverUtils.webDriver.findElement(By.name("loginId")).sendKeys("StudentAA999");
-		WebDriverUtils.webDriver.findElement(By.name("password")).sendKeys("StudentAA999");
+		webDriver.findElement(By.name("loginId")).sendKeys("StudentAA999");
+
+		webDriver.findElement(By.name("password")).sendKeys("StudentAA999");
 
 		// ログインボタンをクリック
-		WebDriverUtils.webDriver.findElement(By.cssSelector("input[type='submit']")).click();
+		webDriver.findElement(By.cssSelector("input[type='submit']")).click();
 
-	    // エラーメッセージが表示されるまで待機
-		WebDriverUtils.visibilityTimeout(
-	            By.cssSelector("span.help-inline.error"), 20);
+		// エラーメッセージが表示されるまで待機
+		visibilityTimeout(
+				By.cssSelector("span.help-inline.error"), 20);
 
-	    // エラーメッセージを確認
-	    String errorMessage = WebDriverUtils.webDriver.findElement(
-	            By.cssSelector("span.help-inline.error")).getText();
+		// エラーメッセージを確認
+		String errorMessage = WebDriverUtils.webDriver.findElement(
+				By.cssSelector("span.help-inline.error")).getText();
 
-	    assertTrue(errorMessage.contains("ログインに失敗しました。"));
+		assertTrue(errorMessage.contains("ログインに失敗しました。"));
 
 		//スクリーンショットを撮影する
-		WebDriverUtils.getEvidence(new Object() {});
+		getEvidence(new Object() {
+		});
 	}
 
 }
