@@ -3,8 +3,6 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -13,8 +11,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * 結合テスト よくある質問機能
@@ -64,9 +60,7 @@ public class Case04 {
 		webDriver.findElement(By.cssSelector("input[type='submit']")).click();
 
 		// ログアウトボタンが表示されるまで待機
-		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.cssSelector("button[onclick*='/lms/logout']")));
+		visibilityTimeout(By.cssSelector("button[onclick*='/lms/logout']"), 20);
 		
 		//検証
 		assertEquals("http://localhost:8080/lms/course/detail", webDriver.getCurrentUrl());
