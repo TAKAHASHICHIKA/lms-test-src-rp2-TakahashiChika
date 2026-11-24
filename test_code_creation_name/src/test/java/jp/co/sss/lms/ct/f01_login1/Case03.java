@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import jp.co.sss.lms.ct.util.WebDriverUtils;
+
 /**
  * 結合テスト ログイン機能①
  * ケース03
@@ -35,7 +37,12 @@ public class Case03 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+		// 指定のURLの画面を開く
+		WebDriverUtils.goTo("http://localhost:8080/lms");
+
+		//スクリーンショットを撮影する
+		WebDriverUtils.getEvidence(new Object() {
+		});
 	}
 
 	@Test
