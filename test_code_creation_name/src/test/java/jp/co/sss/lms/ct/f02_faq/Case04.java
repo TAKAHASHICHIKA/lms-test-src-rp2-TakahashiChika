@@ -9,6 +9,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openqa.selenium.By;
 
 /**
  * 結合テスト よくある質問機能
@@ -35,14 +36,28 @@ public class Case04 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+		// 指定のURLの画面を開く
+		goTo("http://localhost:8080/lms");
+
+		//スクリーンショットを撮影する
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		// TODO ここに追加
+		// ログイン情報を入力
+		webDriver.findElement(By.name("loginId")).sendKeys("StudentAA01");
+		webDriver.findElement(By.name("password")).sendKeys("ItTest2025");
+
+		// ログインボタンをクリック
+		webDriver.findElement(By.cssSelector("input[type='submit']")).click();
+
+		//スクリーンショットを撮影する
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
