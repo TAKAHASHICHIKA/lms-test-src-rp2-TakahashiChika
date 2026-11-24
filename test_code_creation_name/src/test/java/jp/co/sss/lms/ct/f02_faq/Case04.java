@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f02_faq;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
 
@@ -42,6 +43,9 @@ public class Case04 {
 	void test01() {
 		// 指定のURLの画面を開く
 		goTo("http://localhost:8080/lms");
+		
+		//検証
+		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
 
 		//スクリーンショットを撮影する
 		getEvidence(new Object() {
@@ -63,6 +67,9 @@ public class Case04 {
 		WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.cssSelector("button[onclick*='/lms/logout']")));
+		
+		//検証
+		assertEquals("http://localhost:8080/lms/course/detail", webDriver.getCurrentUrl());
 
 		//スクリーンショットを撮影する
 		getEvidence(new Object() {
@@ -78,6 +85,9 @@ public class Case04 {
 
 		// ヘルプをクリック
 		webDriver.findElement(By.linkText("ヘルプ")).click();
+		
+		//検証
+		assertEquals("http://localhost:8080/lms/help", webDriver.getCurrentUrl());
 
 		// スクリーンショットを撮影する
 		getEvidence(new Object() {
@@ -95,6 +105,9 @@ public class Case04 {
 		for (String handle : webDriver.getWindowHandles()) {
 			webDriver.switchTo().window(handle);
 		}
+		
+		//検証
+		assertEquals("http://localhost:8080/lms/faq", webDriver.getCurrentUrl());
 
 		// スクリーンショットを撮影する
 		getEvidence(new Object() {
