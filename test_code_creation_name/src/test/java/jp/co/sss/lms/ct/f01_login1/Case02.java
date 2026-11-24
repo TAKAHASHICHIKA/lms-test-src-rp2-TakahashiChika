@@ -38,7 +38,7 @@ public class Case02 {
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
-	public void test01()  {
+	void test01()  {
 
 		// 指定のURLの画面を開く
 		WebDriverUtils.goTo("http://localhost:8080/lms");
@@ -50,7 +50,7 @@ public class Case02 {
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 DBに登録されていないユーザーでログイン")
-	public void test02()  {
+	void test02()  {
 
 		// 誤った情報を入力
 		WebDriverUtils.webDriver.findElement(By.name("loginId")).sendKeys("StudentAA999");
