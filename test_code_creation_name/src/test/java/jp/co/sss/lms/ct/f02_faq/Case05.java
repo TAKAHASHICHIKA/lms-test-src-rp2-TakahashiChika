@@ -112,39 +112,57 @@ public class Case05 {
 	@Order(5)
 	@DisplayName("テスト05 キーワード検索で該当キーワードを含む検索結果だけ表示")
 	void test05() {
-		 // キーワード検索欄に「キャンセル」を入力
-	    webDriver.findElement(By.name("keyword")).sendKeys("キャンセル");
-	    
-	    getEvidence(new Object(){},"form");
+		// キーワード検索欄に「キャンセル」を入力
+		webDriver.findElement(By.name("keyword")).sendKeys("キャンセル");
 
-	    // 検索ボタンをクリック
-	    webDriver.findElement(By.cssSelector("input[type='submit']")).click();
+		getEvidence(new Object() {
+		}, "form");
 
-	    // 検索結果が表示されるまで待機
-	    visibilityTimeout(By.cssSelector("table tbody tr"), 20);
-	    
-	    // 検索結果が1件だけ表示されていることを検証
-	    assertEquals(1, webDriver.findElements(By.cssSelector("table tbody tr")).size());
+		// 検索ボタンをクリック
+		webDriver.findElement(By.cssSelector("input[type='submit']")).click();
 
-	    // 検索結果の検証
-	    assertEquals("キャンセル料・途中退校について",
-	            webDriver.findElement(By.cssSelector("table tbody tr dt span:nth-child(2)")).getText());
+		// 検索結果が表示されるまで待機
+		visibilityTimeout(By.cssSelector("table tbody tr"), 20);
 
-	    // 検索結果の位置を取得
-	    int position = webDriver.findElement(By.cssSelector("table")).getLocation().getY();
+		// 検索結果が1件だけ表示されていることを検証
+		assertEquals(1, webDriver.findElements(By.cssSelector("table tbody tr")).size());
 
-	    // 検索結果の位置までスクロール
-	    scrollTo(String.valueOf(position));
+		// 期待値と実際の検索結果を比較
+		assertEquals("キャンセル料・途中退校について",
+				webDriver.findElement(By.cssSelector("table tbody tr dt span:nth-child(2)")).getText());
 
-	    // スクリーンショットを撮影
-	    getEvidence(new Object(){},"answer");
+		// 検索結果の位置を取得
+		int position = webDriver.findElement(By.cssSelector("table")).getLocation().getY();
+
+		// 検索結果の位置までスクロール
+		scrollTo(String.valueOf(position));
+
+		// スクリーンショットを撮影
+		getEvidence(new Object() {
+		}, "answer");
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 「クリア」ボタン押下で入力したキーワードを消去")
 	void test06() {
-		// TODO ここに追加
+
+		// クリアボタンの位置を取得
+		int position = webDriver.findElement(By.xpath("//input[@value='クリア']"))
+				.getLocation().getY();
+
+		// ボタンより100px上までスクロール
+		scrollTo(String.valueOf(position - 200));
+
+		// クリアボタンをクリック
+		webDriver.findElement(By.xpath("//input[@value='クリア']")).click();
+
+		// キーワード検索欄が空になったことを検証
+		assertEquals("", webDriver.findElement(By.id("form")).getAttribute("value"));
+
+		// エビデンスを撮影
+		getEvidence(new Object() {
+		});
 	}
 
 }
