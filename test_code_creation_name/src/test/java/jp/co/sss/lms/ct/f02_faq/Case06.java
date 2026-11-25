@@ -3,6 +3,8 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * 結合テスト よくある質問機能
@@ -112,14 +115,59 @@ public class Case06 {
 	@Order(5)
 	@DisplayName("テスト05 カテゴリ検索で該当カテゴリの検索結果だけ表示")
 	void test05() {
-		// TODO ここに追加
+
+		// 「【研修関係】」リンクをクリック
+		webDriver.findElement(By.linkText("【研修関係】")).click();
+
+		// 検索結果が表示されるまで待機
+		visibilityTimeout(By.cssSelector("table tbody tr"), 20);
+
+		// 検索結果欄に表示されている質問を取得
+		List<WebElement> questionList = webDriver
+				.findElements(By.cssSelector("table tbody tr td dl dt span:nth-child(2)"));
+
+		// 検索結果が2件だけ表示されていることを検証
+		assertEquals(2, questionList.size());
+
+		// 期待値と実際の検索結果を比較
+		assertTrue(questionList.stream()
+				.anyMatch(question -> question.getText().equals("キャンセル料・途中退校について")));
+
+		assertTrue(questionList.stream()
+				.anyMatch(question -> question.getText().equals("研修の申し込みはどのようにすれば良いですか？")));
+
+		// 検索結果の位置を取得
+		int position = webDriver.findElement(By.cssSelector("table")).getLocation().getY();
+
+		// 検索結果の位置までスクロール
+		scrollTo(String.valueOf(position));
+
+		// スクリーンショットを撮影する
+		getEvidence(new Object() {
+		});
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 検索結果の質問をクリックしその回答を表示")
 	void test06() {
-		// TODO ここに追加
+		// 「Q.キャンセル料・途中退校について」をクリック
+	    webDriver.findElement(By.xpath(
+	            "//dt[span[2][text()='キャンセル料・途中退校について']]")).click();
+
+	    // 回答が表示されるまで待機
+	    visibilityTimeout(By.cssSelector("dd.fs18"), 20);
+
+	    // 回答内容を取得
+	    WebElement answer = webDriver.findElement(
+	            By.cssSelector("dd.fs18"));
+
+	    // 回答が表示されていることを検証
+	    assertTrue(answer.isDisplayed());
+
+	    // スクリーンショットを撮影する
+	    getEvidence(new Object() {
+	    });
 	}
 
 }
