@@ -112,7 +112,32 @@ public class Case05 {
 	@Order(5)
 	@DisplayName("テスト05 キーワード検索で該当キーワードを含む検索結果だけ表示")
 	void test05() {
-		// TODO ここに追加
+		 // キーワード検索欄に「キャンセル」を入力
+	    webDriver.findElement(By.name("keyword")).sendKeys("キャンセル");
+	    
+	    getEvidence(new Object(){},"form");
+
+	    // 検索ボタンをクリック
+	    webDriver.findElement(By.cssSelector("input[type='submit']")).click();
+
+	    // 検索結果が表示されるまで待機
+	    visibilityTimeout(By.cssSelector("table tbody tr"), 20);
+	    
+	    // 検索結果が1件だけ表示されていることを検証
+	    assertEquals(1, webDriver.findElements(By.cssSelector("table tbody tr")).size());
+
+	    // 検索結果の検証
+	    assertEquals("キャンセル料・途中退校について",
+	            webDriver.findElement(By.cssSelector("table tbody tr dt span:nth-child(2)")).getText());
+
+	    // 検索結果の位置を取得
+	    int position = webDriver.findElement(By.cssSelector("table")).getLocation().getY();
+
+	    // 検索結果の位置までスクロール
+	    scrollTo(String.valueOf(position));
+
+	    // スクリーンショットを撮影
+	    getEvidence(new Object(){},"answer");
 	}
 
 	@Test
